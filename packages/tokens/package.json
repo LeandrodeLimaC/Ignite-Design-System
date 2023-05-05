@@ -1,6 +1,6 @@
 {
-  "name": "@ignite-ui/tokens",
-  "version": "1.0.0",
+  "name": "@tiro-cruzado/tokens",
+  "version": "1.1.0",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -14,8 +14,8 @@
   "author": "LeandrodeLimaC",
   "license": "MIT",
   "devDependencies": {
-    "@ignite-ui/ts-config": "*",
-    "@ignite-ui/eslint-config": "*",
+    "@tiro-cruzado/ts-config": "*",
+    "@tiro-cruzado/eslint-config": "*",
     "tsup": "^6.7.0",
     "typescript": "^5.0.2"
   }

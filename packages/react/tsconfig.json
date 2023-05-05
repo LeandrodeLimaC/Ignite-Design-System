@@ -1,4 +1,6 @@
 {
-  "extends": "@ignite-ui/ts-config/react.json",
-  "include": ["src"]
+  "extends": "@tiro-cruzado/ts-config/react.json",
+  "include": [
+    "src"
+  ]
 }

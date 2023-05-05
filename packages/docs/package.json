@@ -1,5 +1,5 @@
 {
-  "name": "@ignite-ui/docs",
+  "name": "@tiro-cruzado/docs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -31,10 +31,10 @@
     "vite": "^4.2.1"
   },
   "dependencies": {
-    "@ignite-ui/eslint-config": "*",
-    "@ignite-ui/react": "*",
-    "@ignite-ui/tokens": "*",
-    "@ignite-ui/ts-config": "*",
+    "@tiro-cruzado/eslint-config": "*",
+    "@tiro-cruzado/react": "*",
+    "@tiro-cruzado/tokens": "*",
+    "@tiro-cruzado/ts-config": "*",
     "phosphor-react": "^1.4.1",
     "polished": "^4.2.2",
     "react": "^18.2.0",
