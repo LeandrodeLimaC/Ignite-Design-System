@@ -8,7 +8,6 @@ export const Avatar = (props: AvatarProps) => {
   return (
     <AvatarContainer>
       <AvatarImage {...props} />
-
       <AvatarFallback delayMs={600}>
         <User />
       </AvatarFallback>

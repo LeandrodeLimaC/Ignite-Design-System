@@ -8,15 +8,13 @@
     "build": "turbo run build",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build --filter=packages/docs && changeset publish"
+    "release": "turbo run build --filter=!docs && changeset publish"
 
   },
   "devDependencies": {
     "turbo": "^1.8.5"
   },
   "dependencies": {
-    "-": "^0.0.1",
-    "@changesets/cli": "^2.26.1",
-    "D": "^1.0.0"
+    "@changesets/cli": "^2.26.1"
   }
 }
