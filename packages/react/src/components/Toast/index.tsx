@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react'
-import { X } from 'phosphor-react'
 import * as ToastPrimitive from '@radix-ui/react-toast'
 
-import { ToastContainer, ToastTitle, ToastViewport } from './styles'
+import {
+  ToastContainer,
+  ToastTitle,
+  ToastViewport,
+  ToastCloseContainer,
+  CloseIcon,
+  ToastDescription,
+} from './styles'
 
 export type ToastProps = React.ComponentProps<typeof ToastPrimitive.Root> & {
   title?: string
@@ -14,6 +20,7 @@ export type ToastProps = React.ComponentProps<typeof ToastPrimitive.Root> & {
 export const Toast = ({
   title,
   children,
+  content,
   action: Action,
   actionAltText,
   ...props
@@ -25,15 +32,15 @@ export const Toast = ({
   return (
     <ToastContainer {...props}>
       {title && <ToastTitle>{title}</ToastTitle>}
-      <ToastPrimitive.Description>{children}</ToastPrimitive.Description>
+      <ToastDescription>{children || content}</ToastDescription>
       {Action && (
         <ToastPrimitive.Action altText={actionAltText} asChild>
           <Action />
         </ToastPrimitive.Action>
       )}
-      <ToastPrimitive.Close aria-label="Close">
-        <X aria-hidden size={20} />
-      </ToastPrimitive.Close>
+      <ToastCloseContainer aria-label="Fechar">
+        <CloseIcon aria-hidden size={20} />
+      </ToastCloseContainer>
     </ToastContainer>
   )
 }

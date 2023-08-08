@@ -1,4 +1,5 @@
 import { styled } from '@stitches/react'
+import { X } from 'phosphor-react'
 import * as ToastPrimitive from '@radix-ui/react-toast'
 
 export const ToastViewport = styled(ToastPrimitive.Viewport, {
@@ -19,11 +20,12 @@ export const ToastViewport = styled(ToastPrimitive.Viewport, {
 })
 
 export const ToastContainer = styled(ToastPrimitive.Root, {
-  paddingBlock: '12px',
-  paddingInline: '20px',
+  paddingBlock: '$3',
+  paddingInline: '$5',
   backgroundColor: '$gray800',
   border: '1px solid $gray600',
   borderRadius: '$sm',
+  position: 'relative',
 })
 
 export const ToastTitle = styled(ToastPrimitive.Title, {
@@ -31,4 +33,23 @@ export const ToastTitle = styled(ToastPrimitive.Title, {
   fontSize: '$xl',
   fontWeight: '$bold',
   lineHeight: '$base',
+})
+
+export const ToastDescription = styled(ToastPrimitive.Description, {
+  fontFamily: '$default',
+  fontSize: '$sm',
+  color: '$gray200',
+  fontWeight: '$regular',
+  lineHeight: '$base',
+})
+
+export const ToastCloseContainer = styled(ToastPrimitive.Close, {
+  all: 'unset',
+  position: 'absolute',
+  right: '$4',
+  top: '$4',
+})
+
+export const CloseIcon = styled(X, {
+  color: '$gray200',
 })

@@ -1,7 +1,8 @@
 import React from 'react'
 import type { StoryObj, Meta } from '@storybook/react'
 
-import { Button, Portal } from '@tiro-cruzado/react'
+import { Button } from '@tiro-cruzado/react/src/components/Button'
+import { Portal } from '@tiro-cruzado/react/src/index'
 import {
   Toast,
   ToastProps,
@@ -10,11 +11,11 @@ import {
 } from '@tiro-cruzado/react/src/components/Toast'
 
 export default {
-  title: 'Form/Toast',
+  title: 'Data Display/Toast',
   component: Toast,
   decorators: [
-    (Story, context) => {
-      const [open, setOpen] = React.useState(true)
+    (_, context) => {
+      const [open, setOpen] = React.useState(false)
       const timerRef = React.useRef(0)
 
       React.useEffect(() => {
@@ -33,7 +34,7 @@ export default {
               }, 100)
             }}
           >
-            Teste
+            Abrir Toast
           </Button>
           <Portal.Root>
             <Toast {...context.args} open={open} onOpenChange={setOpen} />
@@ -48,7 +49,6 @@ export default {
 export const Primary: StoryObj<ToastProps> = {
   args: {
     title: 'Agendamento realizado',
-    content: 'Quarta-feira, 23 de Outubro às 16h',
-    duration: 500000,
+    children: 'Quarta-feira, 23 de Outubro às 16h',
   },
 }
