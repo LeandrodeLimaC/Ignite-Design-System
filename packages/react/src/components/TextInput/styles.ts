@@ -4,7 +4,7 @@ export const TextInputContainer = styled('div', {
   backgroundColor: '$gray900',
   borderRadius: '$sm',
   boxSizing: 'border-box',
-  border: '2px solid $gray900',
+  border: '2px solid $gray800',
   display: 'flex',
   alignItems: 'center',
 

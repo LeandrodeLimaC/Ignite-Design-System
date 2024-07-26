@@ -2,4 +2,4 @@
 "@tiro-cruzado/react": minor
 ---
 
-Added Tooltip component
+Added Tooltip component a
