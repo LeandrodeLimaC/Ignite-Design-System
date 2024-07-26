@@ -1,9 +1,48 @@
-name: Release
+# name: Release
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+# concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+# jobs:
+#   release:
+#     name: Release
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+#           cache: "npm"
+#           cache-dependency-path: "**/package-lock.json"
+
+#       - run: npm ci
+
+#       - name: Publish to NPM
+#         id: changesets
+#         uses: changesets/action@v1
+#         with:
+#           # This expects you to have a script called release which does a build for your packages and calls changeset publish
+#           publish: yarn release
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+#           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+
+name: Release Packages
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - 'v*'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -15,16 +54,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          node-version: 20.x
 
-      - run: npm ci
+      - name: Install Dependencies
+        run: yarn
 
-      - name: Publish to NPM
+      - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
