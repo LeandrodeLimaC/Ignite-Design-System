@@ -42,7 +42,7 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          working-directory: ./packages/docs
+          workingDir: ./packages/docs
 
       # - name: Deploy storybook
       #   if: steps.changesets.outputs.published == 'true'
