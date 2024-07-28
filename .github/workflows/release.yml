@@ -1,32 +1,30 @@
-name: Release Packages
+name: Release
 
 on:
-  pull_request:
+  push:
     branches:
-      - changeset-release/master
-    types:
-      - closed
+      - master
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  if_merged:
-    if: github.event.pull_request.merged == true
+  release:
     name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 20.x
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20.x
+          node-version: 18
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
 
-      - name: Install Dependencies
-        run: yarn
+      - run: npm ci
 
-      - name: Create Release Pull Request or Publish to npm
+      - name: Publish to NPM
         id: changesets
         uses: changesets/action@v1
         with:

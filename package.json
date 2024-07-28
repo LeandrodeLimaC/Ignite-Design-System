@@ -9,7 +9,6 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=!docs && changeset publish"
-
   },
   "devDependencies": {
     "turbo": "^1.8.5"
