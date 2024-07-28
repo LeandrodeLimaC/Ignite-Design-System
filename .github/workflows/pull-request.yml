@@ -41,3 +41,4 @@ jobs:
     name: Run visual tests
     uses: ./.github/workflows/chromatic.yml
     secrets: inherit
+  
