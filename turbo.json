@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
+  "tasks": {
     "dev": {
       "cache": false
     },
@@ -13,8 +13,6 @@
         "^build"
       ]
     },
-    "lint": {
-      
-    }
+    "lint": {}
   }
 }
