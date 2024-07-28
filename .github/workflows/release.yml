@@ -5,20 +5,51 @@ on:
     branches:
       - master
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  contents: read
 
 jobs:
-  release-packages:
-    name: Release Packages or Create PR
+  changed-files:
+    name: Check if is necessary to release packages
     runs-on: ubuntu-latest
+    outputs:
+      all_changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            packages/react/**
+            packages/tokens/**
+            packages/docs/**
+
+  release-packages:
+    name: Release Packages or create release PR
+    runs-on: ubuntu-latest
+    needs: [changed-files]
+    if: needs.changed-files.outputs.any_changed == true
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
@@ -31,16 +62,28 @@ jobs:
         with:
           publish: npm run release
           commit: "chore: new release"
-          title: "chore: new release candidate"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
-      - name: Deploy storybook
-        if: steps.changesets.outputs.published == 'true'
-        working-directory: ./packages/docs
-        run: touch ./storybook-static/.nojekyll && npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
-        env:
-          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+      # - name: Deploy Chromatic
+      #   uses: chromaui/action@latest
+      #   with:
+      #     projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+      #     workingDir: ./packages/docs
+  
+  chromatic:
+    name: Run visual tests
+    needs: [changed-files, release-packages]
+    if: ${{ needs.changed-files.outputs.any_changed == 'true' }} && ${{ needs.release-packages.outputs.published == 'true' }}
+    uses: ./.github/workflows/chromatic.yml
+    secrets: inherit
+
+    # - name: Deploy storybook
+    #   if: steps.changesets.outputs.published == 'true'
+    #   working-directory: ./packages/docs
+    #   run: touch ./storybook-static/.nojekyll && npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
+    #   env:
+    #     GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
