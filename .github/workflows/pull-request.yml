@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - master
+    branches-ignore:
+      - 'changeset-release/master'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -30,12 +32,6 @@ jobs:
 
       - name: Run Build
         run: npm run build
-
-      # - name: Deploy Chromatic
-      #   uses: chromaui/action@latest
-      #   with:
-      #     projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-      #     workingDir: ./packages/docs
 
   chromatic:
     name: Run visual tests
