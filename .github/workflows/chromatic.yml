@@ -30,9 +30,8 @@ jobs:
       - name: Install deps
         run: npm install
 
-      - name: Build Storybook
-        working-directory: ./packages/docs
-        run: npm run build-storybook
+      - name: Build Packages
+        run: npm run build
         
       - name: ⚡ Run chromatic
         uses: chromaui/action@latest
