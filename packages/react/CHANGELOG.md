@@ -1,11 +1,5 @@
 # @tiro-cruzado/react
 
-## 1.2.1
-
-### Patch Changes
-
-- 0a1abde: Change checkbox border color to light gray
-
 ## 1.2.0
 
 ### Minor Changes
