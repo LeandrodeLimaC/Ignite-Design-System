@@ -1,5 +1,12 @@
 # @tiro-cruzado/react
 
+## 1.2.0
+
+### Minor Changes
+
+- 13d90c9: Added Tooltip component a
+- 13d90c9: Added Toast component
+
 ## 1.1.1
 
 ### Patch Changes
