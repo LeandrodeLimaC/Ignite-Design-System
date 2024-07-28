@@ -31,16 +31,22 @@ jobs:
         with:
           publish: npm run release
           commit: "chore: new release"
-          title: "chore: new release candidate"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
-      - name: Deploy storybook
+      - name: Deploy Chromatic
         if: steps.changesets.outputs.published == 'true'
-        working-directory: ./packages/docs
-        run: touch ./storybook-static/.nojekyll && npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
-        env:
-          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          working-directory: ./packages/docs
+
+      # - name: Deploy storybook
+      #   if: steps.changesets.outputs.published == 'true'
+      #   working-directory: ./packages/docs
+      #   run: touch ./storybook-static/.nojekyll && npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
+      #   env:
+      #     GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
