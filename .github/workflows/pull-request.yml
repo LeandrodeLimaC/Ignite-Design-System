@@ -4,14 +4,13 @@ on:
   pull_request:
     branches:
       - master
-    branches-ignore:
-      - 'changeset-release/master'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   pull-request:
     name: Quality Checks
+    if: ${{ github.head_ref != 'changeset-release/master' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,6 +34,7 @@ jobs:
 
   chromatic:
     name: Run visual tests
+    if: ${{ github.head_ref != 'changeset-release/master' }}
     uses: ./.github/workflows/chromatic.yml
     secrets: inherit
   
