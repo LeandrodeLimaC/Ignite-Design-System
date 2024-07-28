@@ -1,15 +1,12 @@
-name: Release
+name: Deploy docs
 
 on:
-  push:
-    branches:
-      - master
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+  release:
+    types: [published]
 
 jobs:
-  release-packages:
-    name: Release Packages or Create PR
+  build-and-deploy:
+    name: Release Docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,13 +28,9 @@ jobs:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
-      - name: Publish to NPM
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: yarn release
+        
+      - name: Deploy storybook
+        working-directory: ./packages/docs
+        run: touch ./storybook-static/.nojekyll && npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
