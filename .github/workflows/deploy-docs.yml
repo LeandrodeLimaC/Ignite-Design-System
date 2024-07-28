@@ -28,7 +28,6 @@ jobs:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
-        
       - name: Deploy storybook
         working-directory: ./packages/docs
         run: touch ./storybook-static/.nojekyll && npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
