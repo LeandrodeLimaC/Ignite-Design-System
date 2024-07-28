@@ -25,11 +25,13 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Publish to NPM
+      - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn release
+          publish: npm run release
+          commit: "chore: new release"
+          title: "chore: new release candidate"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
