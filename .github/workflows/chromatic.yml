@@ -27,13 +27,13 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
           node-version: 20
 
-      - name: Install deps
+      - name: Install dependencies
         run: npm install
 
       - name: Build Packages
         run: npm run build
         
-      - name: ⚡ Run chromatic
+      - name: Run chromatic
         uses: chromaui/action@latest
         with:
           workingDir: ./packages/docs
