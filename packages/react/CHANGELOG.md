@@ -1,5 +1,11 @@
 # @tiro-cruzado/react
 
+## 1.2.4
+
+### Patch Changes
+
+- 0d07878: Fix Checkbox color
+
 ## 1.2.3
 
 ### Patch Changes
